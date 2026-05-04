@@ -1,0 +1,93 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account and profile information.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "tier": { "enum": ["basic", "elite"] },
+        "passportCountry": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email"]
+    },
+    "Trip": {
+      "title": "Travel Trip",
+      "description": "A travel itinerary and planning document.",
+      "type": "object",
+      "properties": {
+        "tripId": { "type": "string" },
+        "userId": { "type": "string" },
+        "destination": { "type": "string" },
+        "destinationCoords": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "startDate": { "type": "string", "format": "date" },
+        "endDate": { "type": "string", "format": "date" },
+        "budgetLevel": { "type": "number", "description": "1 to 5 dollar signs" },
+        "status": { "enum": ["planning", "proposed", "confirmed"] },
+        "proposedItinerary": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "destination"]
+    },
+    "Booking": {
+      "title": "Travel Booking",
+      "description": "A confirmed booking for travel services.",
+      "type": "object",
+      "properties": {
+        "bookingId": { "type": "string" },
+        "tripId": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "enum": ["hotel", "flight", "rental_car", "event"] },
+        "provider": { "type": "string" },
+        "details": { "type": "object" },
+        "cost": { "type": "number" },
+        "currency": { "type": "string" },
+        "confirmationCode": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tripId", "userId", "type"]
+    },
+    "TravelDocument": {
+      "title": "Travel Document",
+      "description": "Vax records, Visas, etc.",
+      "type": "object",
+      "properties": {
+        "docId": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "enum": ["visa", "vaccination", "insurance", "passport"] },
+        "name": { "type": "string" },
+        "expiryDate": { "type": "string", "format": "date" },
+        "fileUrl": { "type": "string" }
+      },
+      "required": ["userId", "type"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Global user profiles"
+    },
+    "/trips/{tripId}": {
+      "schema": "Trip",
+      "description": "Travel trips records"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Confirmed bookings"
+    },
+    "/documents/{docId}": {
+      "schema": "TravelDocument",
+      "description": "User travel documents"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Odyssey",
+  "description": "Your ultimate AI-powered travel agent and guide for seamless global exploration.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "AI Trip Planning",
+    "Real-time Itineraries",
+    "Smart Bookings",
+    "GPS Guided Tours"
+  ]
+}

@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Cinzel:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-navy-dark: #050B18;
+  --color-black-deep: #02050A;
+  --color-gold: #C5A059;
+  --color-gold-muted: rgba(197, 160, 89, 0.3);
+  
+  --font-sans: "Inter", "Montserrat", ui-sans-serif, system-ui;
+  --font-serif: "Libre Baskerville", Georgia, serif;
+  --font-display: "Cinzel", serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer base {
+  body {
+    @apply bg-navy-dark text-white font-serif antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-widest;
+  }
+}
+
+.glass-card {
+  @apply bg-white/5 backdrop-blur-md border border-white/10;
+}
+
+.gold-border {
+  @apply border border-gold/30;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #C5A059 0%, #E8D3A3 50%, #A67C37 100%);
+}
+
+.dark-gradient {
+  background: linear-gradient(180deg, #050B18 0%, #000000 100%);
+}
+
+.luxury-shadow {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(197, 160, 89, 0.1);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.accent-gold {
+  accent-color: #C5A059;
+}
+
+/* Custom scrollbar for themed look */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-black-deep;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gold/20 hover:bg-gold/40 transition-colors;
+}
