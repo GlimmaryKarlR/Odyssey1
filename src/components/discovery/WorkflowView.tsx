@@ -71,7 +71,7 @@ export default function WorkflowView({ onComplete }: { onComplete: () => void })
                   <div className="absolute bottom-0 left-0 w-0 h-px bg-gold group-focus-within:w-full transition-all duration-1000"></div>
                 </div>
                 <div className="flex gap-4 flex-wrap">
-                  {['Kyoto', 'Amalfi Coast', 'Reykjavik', 'Serengeti'].map(city => (
+                  {['Santorini', 'Kyoto', 'Amalfi Coast', 'Reykjavik'].map(city => (
                     <button 
                       key={city}
                       onClick={() => setTripData({ destination: city })}

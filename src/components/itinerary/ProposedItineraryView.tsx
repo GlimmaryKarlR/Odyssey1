@@ -3,31 +3,18 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Calendar, Clock, MapPin, Coffee, Utensils, Music, Shield, Info, CreditCard } from 'lucide-react';
 import { useOdyssey } from '../../hooks/useOdyssey';
 import { cn, formatCurrency } from '../../lib/utils';
+import { getRecommendations } from '../../lib/recommendations';
 
 export default function ProposedItineraryView() {
   const { currentTrip } = useOdyssey();
-  const [selectedDay, setSelectedDay] = useState(3);
+  const [selectedDay, setSelectedDay] = useState(1);
+
+  const destinationRecs = getRecommendations(currentTrip?.destination);
+  const events = destinationRecs.events;
 
   const days = [1, 2, 3, 4, 5];
-
-  const events = [
-    {
-      id: 1,
-      time: '09:00 AM',
-      title: 'Colosseum Private Access',
-      desc: '"As an Elite member, we\'ve secured dawn access before public entry. You\'ll enter through the Gladiator\'s gate directly onto the arena floor."',
-      type: 'exclusive',
-      active: true
-    },
-    {
-      id: 2,
-      time: '01:30 PM',
-      title: 'Trattoria Da Danilo',
-      desc: '"Personalized Recommendation: You mentioned a love for authentic Carbonara. We have secured a corner table near the window."',
-      type: 'dining',
-      active: false
-    }
-  ];
+  
+  const totalPrice = destinationRecs.stays[0]?.price * 5 + destinationRecs.flights[0]?.price + 500; // rough estimate
 
   return (
     <div className="flex flex-col min-h-full bg-dark-gradient p-8">
@@ -121,7 +108,7 @@ export default function ProposedItineraryView() {
          <div className="flex justify-between items-center bg-black-deep/40 p-6 border border-white/5 rounded-sm">
             <div>
                <p className="text-[10px] text-white/20 uppercase tracking-widest font-sans font-bold mb-1">Total Estimated</p>
-               <p className="text-2xl font-display text-gold">$4,850</p>
+               <p className="text-2xl font-display text-gold">{formatCurrency(totalPrice)}</p>
             </div>
             <button className="bg-gold text-black-deep px-8 py-3 font-display font-bold text-[10px] uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(197,160,89,0.2)]">
                Reserve Journey

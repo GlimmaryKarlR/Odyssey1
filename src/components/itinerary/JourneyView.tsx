@@ -3,44 +3,16 @@ import { motion } from 'motion/react';
 import { Plane, Hotel, Star, Clock, MapPin, CheckCircle2, Navigation } from 'lucide-react';
 import { useOdyssey } from '../../hooks/useOdyssey';
 import { cn } from '../../lib/utils';
+import { getRecommendations } from '../../lib/recommendations';
 
 export default function JourneyView({ onNext }: { onNext: () => void }) {
   const { currentTrip } = useOdyssey();
   const [selectedFlight, setSelectedFlight] = useState<number | null>(null);
   const [selectedStay, setSelectedStay] = useState<number | null>(null);
 
-  const flights = [
-    { id: 1, provider: 'Emirates', time: '14:20 - 08:30', duration: '12h 10m', type: 'Nonstop', price: 1240 },
-    { id: 2, provider: 'Qatar Airways', time: '11:00 - 23:45', duration: '16h 45m', type: '1 Stop (DOH)', price: 980 },
-    { id: 3, provider: 'Singapore Airlines', time: '22:15 - 19:20', duration: '15h 05m', type: 'Nonstop', price: 1450 }
-  ];
-
-  const stays = [
-    { 
-      id: 1, 
-      name: 'Aman Tokyo', 
-      desc: 'Architectural masterpiece with panoramic city views', 
-      price: 1800, 
-      rating: 4.9, 
-      image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800' 
-    },
-    { 
-      id: 2, 
-      name: 'Park Hyatt', 
-      desc: 'Sleek luxury in the heart of Shinjuku', 
-      price: 1200, 
-      rating: 4.8, 
-      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800' 
-    },
-    { 
-      id: 3, 
-      name: 'Hoshinoya', 
-      desc: 'A modern ryokan experience in the capital', 
-      price: 1500, 
-      rating: 5.0, 
-      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=800' 
-    }
-  ];
+  const destinationRecs = getRecommendations(currentTrip?.destination);
+  const flights = destinationRecs.flights;
+  const stays = destinationRecs.stays;
 
   const canContinue = selectedFlight !== null && selectedStay !== null;
 
